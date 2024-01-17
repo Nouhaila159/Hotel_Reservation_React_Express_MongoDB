@@ -1,27 +1,35 @@
-//mongodb+srv://nouhaila_danouni:wWZnBmvfW33zSJju@projects.t6jxa5t.mongodb.net/?retryWrites=true&w=majority
-const express=require("express");// importer express
-const app=express(); //démarrer express
+const express = require("express");
+const app = express();
 const path=require("path");
-
 const cors=require("cors");
+const jwt = require('jsonwebtoken');
+
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+const dbConnection = require("./db");
 
-const productrouter=require("./routes_server/products.routes");
-const categoryRouter=require("./routes_server/categories.routes");
-const loginRouter=require("./routes_server/login.routes");
+const roomRouter=require("./routes/rooms.routes");
+const loginRouter=require("./routes/login.routes");
+const bookingRouter=require("./routes/bookings.routes");
 
-const mongoose=require("mongoose");
-const dotevn=require("dotenv");
 
-dotevn.config()
 
-mongoose.connect(process.env.DB_URL)
-.then(result=>app.listen(process.env.SERVER_PORT,()=>console.log("server running")))
-.catch(err=>console.log(err));
+app.use(express.json());
+
+const port = process.env.PORT || 5000;
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
+
+
+
 app.use(cors());
 app.use(express.json());
-app.use("/products",productrouter);
-app.use("/categories",categoryRouter);
+
+app.use("/rooms",roomRouter);
+app.use("/bookings",bookingRouter);
+//app.use("/bookings",bookingRouter);
 app.use("/",loginRouter);
 
 

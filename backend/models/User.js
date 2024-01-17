@@ -1,16 +1,16 @@
-// Importation du module Mongoose
 const mongoose = require("mongoose");
 
-// Définition d'un schéma de produit
-const userSchema = new mongoose.Schema({
-  lName: String,
-  fName: String,
-  email: String,
-  password: String
-});
+const userSchema = new mongoose.Schema(
+  {
+    name: {type: String,required: true},
+    email: {type: String,required: true,unique: true},
+    password: {type: String,required: true},
+    isAdmin: {type: Boolean,default: false},
+  },
+  {
+    timestamps: true,
+  }
+);
 
-// Création d'un modèle Mongoose basé sur le schéma
-const User = mongoose.model("User", userSchema);
-
-// Exportation du modèle Product pour une utilisation ultérieure
+const User = mongoose.model("users", userSchema);
 module.exports = User;

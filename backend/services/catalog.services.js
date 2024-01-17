@@ -1,63 +1,94 @@
-const Product=require("../models/Product")
-const Category=require("../models/Category")
+const { Types } = require("mongoose");
+const Room = require("../models/room");
+const Booking = require("../models/booking");
 
-async function findProducts() {
-       return await Product.find().populate("category");
-
-}
-
-async function findProductById(idP){
-       return await Product.findById(idP).populate("category");
+async function findRooms() {
+       return await Room.find();
 
 }
 
-async function findProductByQuery(query){
-       return await Product.find({name:{$regex:query,$options:"i"}}).populate("category");
+async function findRoomById(idR){
+       return await Room.findById(idR);
+
 }
 
-async function saveProduct(p){
+async function findRoomByQuery(query){
+       return await Room.find({name:{$regex:query,$options:"i"}});
+}
+
+async function findRoomByType(type){
+       if(type=='all'){return await Room.find();}
+       else{return await Room.find({type : type});
+}
+
+}
+
+
+async function saveRoom(r){
        
-       return await Product.create(p);
+       return await Room.create(r);
       
 }
 
-async function removeProductById(idP){
-       return Product.findByIdAndDelete(idP);
-}
+async function removeRoomById(idR) {
+       try {
+         const room = await Room.findById(idR);
+     
+         if (!room) {
+           throw new Error('Room not found');
+         }
 
-async function editProduct(idP,p){
-       return await Product.findByIdAndUpdate(idP,p);      
-}
+         const booking = await Booking.findOne({ "room": idR });
 
-async function findCategories() {
-       return await Category.find();
-}
+       if (!booking) {
+              return Room.findByIdAndDelete(idR);  
+              
+       } else {
 
+              throw new Error('Room has active bookings and cannot be deleted');
+       }
 
-async function saveCategory(c) {
-       return Category.create(c);
-}
-
-async function findCategoryById(idC){
-       return await Category.findById(idC);
-}
-
-async function findCategoryByQuery(query){
-       return await Category.find({name:{$regex:query,$options:"i"}})
-}
-
-
-async function removeCategoryById(idC){
-       await  Category.findByIdAndDelete(idC);
-       await Product.deleteMany({ category: idC });
+       } catch (error) {
+         throw new Error(`Error removing room: ${error.message}`);
+       }
+     }
+     
+     async function editRoom(idR, formData) {
+       try {
+              let images=[];
+         const roomData = JSON.parse(formData.get('roomData'));
+     
+         const { name, maxcount, phoneNumber, rentperday, type, description, roomImages } = roomData;
+     
+         // Obtenez les anciennes images à partir de la base de données
+         const room = await Room.findById(idR);
+         if (formData.has('image') && formData.get('image').trim() !== '')
+         {
+               images = formData.get('image').split(',') ;
+         }
+          else{
+              images = roomImages;
+          } 
+         console.log(images);
       
-}
-
-async function editCategory(idC,c){
-
-       return await Category.findByIdAndUpdate(idC,c);
-       
-}
-
-module.exports={findProducts, findProductById, saveProduct, removeProductById, editProduct,
-findCategories,findCategoryById,findCategoryByQuery,saveCategory,editCategory,removeCategoryById,findProductByQuery}
+         // Mettez à jour le champ image avec les nouvelles images combinées
+         await Room.findByIdAndUpdate(idR, {
+           name,
+           maxcount,
+           phoneNumber,
+           rentperday,
+           image: images,
+           type,
+           description,
+         });
+     
+         return "Room a été bien modifié";
+       } catch (error) {
+         console.error("Erreur dans la modification de la chambre :", error);
+         throw new Error("Erreur dans la modification de la chambre");
+       }
+     }
+     
+     
+     
+module.exports={findRooms,findRoomById,findRoomByQuery,findRoomByType,saveRoom,removeRoomById,editRoom}

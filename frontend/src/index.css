@@ -1,108 +1,152 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  font-family: "Montserrat", sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.red{
+  color: red;
 }
 
-table {
-  margin-left: 100px ; 
-  margin-bottom: 10px ;
-  width: 80%; 
-  border-collapse: collapse;
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
-}
-th, td {
-  padding: 10px;
-  text-align: center;
-  border: 2px solid #461c39;
-}
-thead {
-  background-color: #c41a91; 
-  color: #fff; 
+img.img-fluid.logo {
+  width: 100px;
+  border-radius: 20px 5px;
 }
 
+.nav-link.active,
+.nav-link:hover {
+  border-bottom: 2px solid black;
+}
 
+.nav-link {
+  border-bottom: 2px solid transparent;
+}
 
-input[type=text],input[type=number],select {
+.hero {
+  padding-top: 400px;
+  background: url('../public/img/hero.jpg') no-repeat center center;
+  background-size: cover;
+}
+
+.bg-orange {
+  background-color: #e4a00e;
+}
+
+.btn-orange {
+  background-color: #e4a00e;
+  border: none;
+  color: white;
+  padding: 15px 25px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  box-shadow: unset !important;
+}
+
+#promo {
+  cursor: pointer;
+  display: block;
+}
+
+#promo.inactive {
+  display: none;
+}
+
+#promo-holder {
+  display: none;
+}
+
+#promo-holder.active {
+  display: block;
+}
+
+.availability input {
+  font-size: 20px;
+}
+
+.availability.mt-4 {
+  position: relative;
+  top: 50px !important;
+  margin-top: 0px !important;
+  margin-bottom: 100px !important;
+}
+
+.ls-3 {
+  letter-spacing: 5px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap:  20px;
+}
+
+.info {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  transition: 0.6s;
+  transform: translateY(100%);
 }
 
-input[type=submit], input[type=reset] {
-  width: auto; /* Ajustez la largeur en fonction de vos besoins */
-  display: inline-block;
-  background-color: #c41a91;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.img-holder:hover .info {
+  transform: translateY(0%);
 }
 
-
-input[type=submit]:hover {
-  background-color: #c41a91;
+.hotel-icons p {
+  font-size: 14px;
 }
 
-form,h1 {
-  margin: 40px;
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-  
-}
-.custom-button {
-  background-color: #c41a91;
-  color: white;
-  padding: 14px 20px;
-  margin-left: 100px ;
-  border: none;
-  border-radius: 4px;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
+.navbar-toggler {
+  border: unset !important;
 }
 
-.custom-button:hover {
-  background-color: #b3177f;
+button:focus {
+  outline: unset !important;
+  box-shadow: unset !important;
 }
 
-.custom-button1 {
-  /* Ajoutez ici vos styles communs aux deux boutons */
-  background-color: rgb(15, 90, 15);
-  color: #fff;
-  padding: 10px 10px;
-  border: none;
-  border-radius: 4px;
-  text-decoration: none;
-  margin-right: 10px; /* Espacement entre les boutons, ajustez selon vos besoins */
+@media screen and (max-width: 992px) {
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
 }
 
-.custom-button2 {
-  /* Ajoutez ici vos styles communs aux deux boutons */
-  background-color: rgb(156, 10, 10);
-  color: #fff;
-  padding: 8px 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  text-decoration: none;
-  margin-right: 10px; /* Espacement entre les boutons, ajustez selon vos besoins */
+@media screen and (max-width: 767px) {
+  li.nav-item.ms-4 {
+    margin-left: 5px !important;
+    margin-top: 10px;
+    margin-right: 5px !important;
+  }
+
+  .topbar .d-flex {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .topbar p:first-child {
+    margin-bottom: 10px !important;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+  }
+
+  .reservation .col-md-6,
+  .reservation .col-md-3 {
+    padding: 25px !important;
+  }
 }
-
-
