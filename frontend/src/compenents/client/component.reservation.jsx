@@ -57,7 +57,7 @@ export function Reservation() {
 
                 if(
                   !(fd >= booking.fromdate && fd <= booking.todate)  
-                  || 
+                  &&
                   !(td >= booking.fromdate && td <= booking.todate)
                 ){
                       if(

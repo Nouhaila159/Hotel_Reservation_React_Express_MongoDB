@@ -29,6 +29,8 @@ router.route("/")
 router.route("/:id")
   .get(roomController.getRoomById)
   .delete(roomController.deleteRoomById)
-  .patch(upload.array('roomImages'),roomController.updateRoom);
+  .put(upload.array('roomImages'),roomController.updateRoom)
+  .patch(roomController.updateRoomWithBooking);
+
   
 module.exports = router;

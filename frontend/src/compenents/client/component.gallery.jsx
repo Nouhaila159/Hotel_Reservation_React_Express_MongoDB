@@ -33,7 +33,7 @@ export function Gallery() {
 
           {rooms.map((room) => (
             <div  key={room._id} class="img-holder position-relative overflow-hidden">
-            <img src={`http://localhost:5000${room.image[0]}`} className="img-fluid w-100" alt="" />
+            <img src={`http://localhost:5000${room.image[0]}`} class="img-fluid h-100 w-100 " alt="" />
 
             <div class="info">
                 <h5 class="text-white mt-2" >{room.name}</h5>

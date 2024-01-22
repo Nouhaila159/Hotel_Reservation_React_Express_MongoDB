@@ -90,5 +90,16 @@ async function removeRoomById(idR) {
      }
      
      
+     async function editRoomWithBooking(idR, room) {
+       const updatedRoom = await Room.findById(idR);
+       
+       updatedRoom.currentbookings = room.currentbookings;
      
-module.exports={findRooms,findRoomById,findRoomByQuery,findRoomByType,saveRoom,removeRoomById,editRoom}
+       await updatedRoom.save();
+       console.log("rooooom:" , updatedRoom);
+       
+       return updatedRoom;
+     }
+     
+     
+module.exports={findRooms,editRoomWithBooking,findRoomById,findRoomByQuery,findRoomByType,saveRoom,removeRoomById,editRoom}

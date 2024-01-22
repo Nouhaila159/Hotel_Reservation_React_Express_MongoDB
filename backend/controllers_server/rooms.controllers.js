@@ -59,9 +59,8 @@ async function deleteRoomById(req,res){
        await catalogServices.removeRoomById(idR);
        res.send("Room a était bien supprimé");
        }catch(error){
-       res.status(500).send("Erreur dans la suppression de room");
-       }
-      
+       res.status(500).send("Erreur dans la suppression de room");  
+  }
 }
 
 
@@ -86,7 +85,18 @@ async function updateRoom(req, res) {
   }
 }
 
+async function updateRoomWithBooking(req, res) {
+  const idR = req.params.id;
+  try {
+    console.log('Id Room:', idR);
+    console.log('Request Body:', req.body);
+    await catalogServices.editRoomWithBooking(idR, req.body);
+    res.send("Current Booking a été bien modifié");
+  } catch (error) {
+    console.error('Error in updateRoomWithBooking:', error);
+    res.status(500).send("Erreur dans la modification de la chambre");
+  }
+}
 
 
-
-module.exports={getAllRooms, getRoomById, addRoom, deleteRoomById, updateRoom}
+module.exports={getAllRooms, getRoomById, addRoom,updateRoomWithBooking, deleteRoomById, updateRoom}

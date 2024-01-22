@@ -24,5 +24,9 @@ export async function getRoomByID(id){
 }
 
 export async function updateRoom(id,room){
-       return await http.patch(`/rooms/${id}`,room,  {headers:{"Content-Type":"multipart/form-data"}});
+       return await http.put(`/rooms/${id}`,room,  {headers:{"Content-Type":"multipart/form-data"}});
+}
+
+export async function updateRoom2(roomId, updatedRoomData) {
+       return  await http.patch(`/rooms/${roomId}`, updatedRoomData);
 }

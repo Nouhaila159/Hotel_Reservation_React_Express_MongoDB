@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getRoomByID, updateRoom } from "../../sevices/room.services";
+import { getRoomByID, updateRoom2 } from "../../sevices/room.services";
 import { useLocation, useParams } from "react-router-dom";
 import { Carousel } from "react-bootstrap";
 import moment from 'moment';
@@ -38,6 +38,7 @@ export function Checkout() {
       const response = await getRoomByID(roomId);
       const room = response.data;
       console.log(bookingId);
+  
       room.currentbookings.push({
         bookingId: bookingId,
         fromdate: fromdate,
@@ -45,7 +46,8 @@ export function Checkout() {
         userId: userId,
         status: status
       });
-      await updateRoom(roomId, room);
+  
+      await updateRoom2(roomId, room);
       console.log(room);
     } catch (error) {
       console.error('Error updating room with new booking:', error);
