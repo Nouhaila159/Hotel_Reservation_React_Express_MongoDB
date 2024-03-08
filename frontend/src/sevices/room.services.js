@@ -6,6 +6,7 @@ export async function getRoom(query,type){
        return await http.get(`/rooms?keyword=${query}&type=${type}`);
 }
 
+//Admin
 export async function getRooms(query){
        return await http.get(`/rooms?keyword=${query}`);
 }
